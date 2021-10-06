@@ -121,8 +121,24 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
-            
+			<div class="sidebar-heading">
+                Gestion
+            </div>
+			<li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInformes" aria-expanded="true" aria-controls="collapseInformes">
+                    <i class="fas fa-fw fa-info-circle"></i>
+                    <span>Informes</span>
+                </a>
+                <div id="collapseInformes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestionar:</h6>
+                        <a class="collapse-item" href="usuarios.php">Camas</a>
+                        <a class="collapse-item" href="empleado.php">Facturacion</a>
+                        <a class="collapse-item" href="paciente.php">Servicios</a>
+                    </div>
+                </div>
+            </li>
+			<hr class="sidebar-divider d-none d-md-block">			
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -315,16 +331,6 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">             
-						<h1 class="h3 mb-0 text-gray-800"></h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generar informe de pacientes</a>
-						<h1 class="h3 mb-0 text-gray-800"></h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generar informe de Historias Clinicas</a>
-                    </div>
                     <!-- Content Row -->
                     <div class="row">
 

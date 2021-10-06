@@ -130,6 +130,24 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+			<div class="sidebar-heading">
+                Gestion
+            </div>
+			<li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInformes" aria-expanded="true" aria-controls="collapseInformes">
+                    <i class="fas fa-fw fa-info-circle"></i>
+                    <span>Informes</span>
+                </a>
+                <div id="collapseInformes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestionar:</h6>
+                        <a class="collapse-item" href="usuarios.php">Camas</a>
+                        <a class="collapse-item" href="empleado.php">Facturacion</a>
+                        <a class="collapse-item" href="paciente.php">Servicios</a>
+                    </div>
+                </div>
+            </li>
+			<hr class="sidebar-divider d-none d-md-block">
 
             <!-- Divider 
             <hr class="sidebar-divider">-->
