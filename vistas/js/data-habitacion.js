@@ -73,6 +73,7 @@ $(document).ready(function() {
     $(document).on('click', ".btnEditar", function() {//Agregar una cama
         fila = $(this).closest('tr'); 
         id_habi = parseInt(fila.find('td:eq(0)').text());
+		$('#formCama').trigger("reset"); //Funcion para resetear o limpiar el formulario 
 		Swal.fire({
             icon: 'info',
             title: 'Ingreso para registrar una cama',
@@ -81,7 +82,7 @@ $(document).ready(function() {
 		opcion = 2;
 		$(".modal-header").css("background-color", "");
         $(".modal-header").css("color", "black");
-        $(".modal-title").text("Agregar Cama");
+		$(".modal-title").text("Agregar Cama");
         $("#Disponibles").modal('show');        
     });
 	$('#formCama').submit(function(e) {
@@ -121,6 +122,7 @@ $(document).ready(function() {
             }
         });
         $('#Disponibles').modal('hide');
+		
     });
     $(document).on("click", ".btnBorrar", function() {//Mostrar los datos en el modal del paciente
 		Swal.fire({

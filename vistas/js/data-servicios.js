@@ -13,7 +13,6 @@ $(document).ready(function() {
             { "data": "id_servicio" },
             { "data": "nombre" },
             { "data": "valor_s" },
-            { "data": "cantidad" },
             { "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-success btn-sm btnEditar' title='Editar'><i class='fas fa-user-edit'></i></button><button class='btn btn-warning btn-sm btnBorrar' data-toggle='Disponible' title='Ver habitaciones disponibles que aun tienen camas disponibles'><i class='fas fa-search-location'></i></button></div></div>" }
         ]
     });

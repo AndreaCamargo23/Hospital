@@ -12,7 +12,7 @@ $opciones=(isset($_POST['opcion']))?$_POST['opcion']:'';
 
 switch($opciones){
     case 1://Insertar datos
-	try{
+	//try{
 		$sql="insert into habitacion (id_habi,id_estado_fk)
          values('$id_habi','12')";
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
@@ -22,9 +22,9 @@ switch($opciones){
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
         $res->execute(); //Ejecuta la consulta
         $data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector
-	} catch(Exception $ex){
+	/*} catch(Exception $ex){
 		$data = null; 
-	}
+	}*/
     break; 
     
     case 2://insertar datos de la cama

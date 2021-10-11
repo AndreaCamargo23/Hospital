@@ -147,7 +147,7 @@ session_start();
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestionar:</h6>
                         <a class="collapse-item" href="#">Camas</a>
-                        <a class="collapse-item" href="#">Facturacion</a>
+                        <a class="collapse-item" href="infoFact.php">Facturacion</a>
                         <a class="collapse-item" href="#">Servicios</a>
                     </div>
                 </div>
@@ -404,7 +404,6 @@ session_start();
 										  <th>Id Servicio</th>
 										  <th>Nombre</th>
 										  <th>Valor</th>
-										  <th>Habitaciones</th>
 										  <th>Acciones</th>
 										</tr>
 									  </thead>
@@ -413,7 +412,6 @@ session_start();
 										  <th>Id Servicio</th>
 										  <th>Nombre</th>
 										  <th>Valor</th>
-										  <th>Habitaciones</th>
 										  <th>Acciones</th>
 										</tr>
 									  </tfoot>

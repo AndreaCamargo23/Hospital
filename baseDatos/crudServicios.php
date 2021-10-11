@@ -54,9 +54,8 @@ switch($opciones){
     
 
     case 4://Consultar
-        $sql ="select servicio.id_servicio, servicio.valor_s, servicio.nombre,count(habitacion.id_servicio) as 'cantidad' 
-		from servicio left join habitacion on(servicio.id_servicio=habitacion.id_servicio) 
-		group by servicio.id_servicio"; 
+        $sql ="select servicio.id_servicio, servicio.valor_s, servicio.nombre
+		from servicio"; 
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
         $res->execute(); //Ejecuta la consulta
         $data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector

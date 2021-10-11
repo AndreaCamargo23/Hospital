@@ -99,7 +99,7 @@
                 </div>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="servicios.php">
                     <i class="fas fa-fw fa-stethoscope"></i>
                     <span>Servicios</span></a>
             </li>
@@ -123,7 +123,7 @@
                     <span>Camas</span></a>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="habitacion.php">
                     <i class="fas fa-fw fa-hospital"></i>
                     <span>Habitacion</span></a>
             </li>
@@ -142,7 +142,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestionar:</h6>
                         <a class="collapse-item" href="usuarios.php">Camas</a>
-                        <a class="collapse-item" href="empleado.php">Facturacion</a>
+                        <a class="collapse-item" href="infoFact.php">Facturacion</a>
                         <a class="collapse-item" href="paciente.php">Servicios</a>
                     </div>
                 </div>
