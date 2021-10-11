@@ -44,7 +44,9 @@ switch($opciones){
     
 
     case 3://Agregar a un paciente.
-        $sql ="select id_habi, cantidadCamas from habitacion where id_servicio='$id_servicio' and id_estado_fk=10";
+        $sql ="SELECT id_habi, count(if(c.id_estado_fk=1,1,null)) as camas
+		from habitacion h left join cama c on(h.id_habi=c.id_habitacion_fk)
+		group by 1";
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
         $res->execute(); //Ejecuta la consulta
 		$data = $res->fetchAll(PDO::FETCH_ASSOC);

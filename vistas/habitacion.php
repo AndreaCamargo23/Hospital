@@ -20,7 +20,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="./img/hospital.ico" rel="icon" type="ico">
-    <title>Servicios Hospital</title>
+    <title>Habitaciones Hospital</title>
 
     <!-- Custom fonts for this template -->
     <link href="../librerias/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -103,8 +103,8 @@ session_start();
                     </div>
                 </div>
             </li>
-			<li class="nav-item active">
-                <a class="nav-link" href="#">
+			<li class="nav-item">
+                <a class="nav-link" href="servicios.php">
                     <i class="fas fa-fw fa-stethoscope"></i>
                     <span>Servicios</span></a>
             </li>
@@ -127,7 +127,7 @@ session_start();
                     <i class="fas fa-fw fa-procedures"></i>
                     <span>Camas</span></a>
             </li>
-			<li class="nav-item">
+			<li class="nav-item active">
                 <a class="nav-link" href="habitacion.php">
                     <i class="fas fa-fw fa-hospital"></i>
                     <span>Habitacion</span></a>
@@ -374,18 +374,18 @@ session_start();
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Servicios</h1>
-                    <p class="mb-4">En el siguiente apartado Identifican todos los servicios que prestan el hospital y el valor de cada uno de estos.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Habitaciones</h1>
+                    <p class="mb-4">En el siguiente apartado se identifican todas las habitaciones que se encuentran en el hospital.</p>
                 
                     <!--boton para agregar registro-->
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
-                                <button type="button" id="btnAgregar" class="btn btn-info" data-toggle="modalServicio">
+                                <button type="button" id="btnAgregar" class="btn btn-info" data-toggle="modalHabitacion">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-book-medical"></i>
                                         </span>
-                                        <span class="text">Agregar Servicio</span>                                    
+                                        <span class="text">Agregar Habitacion</span>                                    
                                 </button>
                             </div>
                         </div>
@@ -394,26 +394,26 @@ session_start();
                     <!-- DataTales Example -->
                     <div class="card shadow mb-8">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Servicios</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Habitaciones</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                   <table id="tablaServicio" class="table table-bordered">
+                                   <table id="tablaHabitacion" class="table table-bordered">
 									  <thead class="text-center"> 
 										<tr>
-										  <th>Id Servicio</th>
-										  <th>Nombre</th>
-										  <th>Valor</th>
-										  <th>Habitaciones</th>
+										  <th>Id Habitacion</th>
+										  <th>Cantidad de camas</th>
+										  <th>Estado</th>
+										  <th>Camas disponibles</th>
 										  <th>Acciones</th>
 										</tr>
 									  </thead>
 									  <tfoot class="text-center">
 									  <tr>
-										  <th>Id Servicio</th>
-										  <th>Nombre</th>
-										  <th>Valor</th>
-										  <th>Habitaciones</th>
+										  <th>Id Habitacion</th>
+										  <th>Cantidad de camas</th>
+										  <th>Estado</th>
+										  <th>Camas disponibles</th>
 										  <th>Acciones</th>
 										</tr>
 									  </tfoot>
@@ -458,7 +458,7 @@ session_start();
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Desea cerrar sesion?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Seguro que quiere salir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -473,7 +473,7 @@ session_start();
     </div>
     <!-- Modal Agregar servicio-->
 
- <div class="modal fade" id="modalServicio" tabindex="-1" aria-labelledby="modalUsuario" aria-hidden="true">
+ <div class="modal fade" id="modalHabitacion" tabindex="-1" aria-labelledby="modalHabitacion" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -483,21 +483,15 @@ session_start();
         </button>
       </div>
       <!--FORMULARIO-->
-        <form id="formServicio">      
+        <form id="formHabitacion">      
             <div class="modal-body">
             <div class="row">            
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                   <div class="form-group">
-                      <label class="col-form-label">Nombre</label>
-                      <input type="text" class="form-control" placeholder="Ingrese el nombre del servicio" maxlength="40" minlength="8" id="name" required>
+                      <label class="col-form-label">Numero de habitacion</label>
+                      <input type="number" class="form-control" placeholder="402" id="id_habi" required>
                   </div> 
                 </div>
-                <div class="col-lg-12">
-                  <div class="form-group">
-                      <label class="col-form-label" id="passwd1">Valor $</label>
-                      <input type="number" class="form-control" placeholder="$"id="valor" required>
-                  </div> 
-                </div>				
             </div>
             </div>
         
@@ -509,12 +503,54 @@ session_start();
       </div>
     </div>
   </div>
-  <!--Modal para ver las habitaciones disponibles-->
+  <!--Modal para registrar las camas-->
   <div class="modal fade" id="Disponibles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Habitaciones disponibles</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Registro de camas</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+				<form id="formCama">      
+					<div class="modal-body">
+					<div class="row">            
+						<div class="col-lg-6">
+						  <div class="form-group">
+							  <label class="col-form-label" id="passwd1">Valor de la cama</label>
+							  <input type="number" class="form-control" placeholder="$"id="valorCama" required>
+						  </div> 
+						</div>
+						<div class="col-lg-6">
+					  <div class="form-group">
+						<label class="col-form-label">Estado</label>
+						  <select class="form-select" id="estado" aria-label="Default select example">
+							<option selected>Seleccione una opción</option>
+							<option value="1">Disponible</option>
+							<option value="2">Ocupado</option>
+						  </select>
+					  </div> 
+					</div>
+					</div>
+					</div>				
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+					<button type="submit" id="btnGuardar2" class="btn btn-primary">Agregar</button>
+				</div>
+				</form>
+            </div>
+        </div>
+    </div>
+	</div>
+	
+	<!--Modal para ver pacientes-->
+  <div class="modal fade" id="pacientes" tabindex="-1" role="dialog" aria-labelledby="pacientes" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pacientes">Pacientes que estan en la habitacion</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -523,8 +559,9 @@ session_start();
 					<table id="tabla2" class="table table-bordered">
 						<thead class="text-center"> 
 							<tr>
-							  <th>Id Habitacion</th>
-						      <th>Cantidad de camas</th>
+							  <th>Id Paciente</th>
+						      <th>Nombre</th>
+							  <th>Apellido</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -556,7 +593,7 @@ session_start();
     <script type="text/javascript" src="../librerias/DataTables/datatables.min.js"></script>  
 
     <!-- main del java scrip -->
-	<script src="./js/data-servicios.js"></script>
+	<script src="./js/data-habitacion.js"></script>
     <!--Notificaciones-->
 	<script src="../librerias/swa2/dist/sweetalert2.min.js"></script>
 

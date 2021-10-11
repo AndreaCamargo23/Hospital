@@ -119,7 +119,7 @@ $(document).ready(function() {
 				},
 				"columns": [
 					{ "data": "id_habi" },
-					{ "data": "cantidadCamas" }					
+					{ "data": "camas" }					
 				]
 			});
 			
