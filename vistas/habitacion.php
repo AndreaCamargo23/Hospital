@@ -110,20 +110,20 @@ session_start();
             </li>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="facturas.php">
                     <i class="fas fa-fw fa-file-invoice-dollar"></i>
                     <span>Facturas</span></a>
             </li>
 			<!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="ingreso.php">
                     <i class="fas fa-fw fa-book-medical"></i>
                     <span>Ingreso</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="camas.php">
                     <i class="fas fa-fw fa-procedures"></i>
                     <span>Camas</span></a>
             </li>
@@ -170,15 +170,6 @@ session_start();
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Configuracion</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="#">Colors</a>
-                        <a class="collapse-item" href="#">Borders</a>
-                        <a class="collapse-item" href="#">Animations</a>
-                        <a class="collapse-item" href="#">Other</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Sidebar Toggler (Sidebar) -->

@@ -100,13 +100,13 @@ session_start();
                 </div>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="servicios.php">
                     <i class="fas fa-fw fa-stethoscope"></i>
                     <span>Servicios</span></a>
             </li>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="facturas.php">
                     <i class="fas fa-fw fa-file-invoice-dollar"></i>
                     <span>Facturas</span></a>
             </li>

@@ -55,7 +55,33 @@ switch($opciones){
       try{
 		$sql ="update paciente set id_estado_fk='7' where id_paciente=$id"; 
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
+        $res->execute(); //Ejecuta la consulta.
+		$fechaActual = date('Y-m-d');// obtenemos fecha actual
+		$dias = date("d", strtotime($fechaActual))+10;
+		$fechaVencimiento = date("Y", strtotime($fechaActual))."-".date("m", strtotime($fechaActual))."-".$dias;
+		// Agregar la fecha de salida en el ingreso
+		$sql ="update ingreso set fecha_salida='$fechaActual' where id_paciente_fk='$id'"; 
+        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
         $res->execute(); //Ejecuta la consulta
+		
+		//generar la factura
+		
+		//Consultar para el valor total
+		$sql ="select ingreso.id_ingreso, sum(valor_s), valor_c from ingreso left join adquirir on (ingreso.id_ingreso=adquirir.id_ingreso)
+				left join servicio on (adquirir.id_servicio=servicio.id_servicio)
+				left join cama on (ingreso.id_cama_fk=cama.id_cama)
+				where ingreso.id_paciente_fk='$id';"; 
+        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
+        $res->execute(); //Ejecuta la consulta
+		$data = $res->fetchAll(PDO::FETCH_ASSOC);
+		$valor_total=$data[0]['sum(valor_s)']+$data[0]['valor_c']; //obtenemos valor total	
+		$id_ingreso=$data[0]['id_ingreso']; 
+		//Insertar factura
+		$sql ="INSERT INTO facturacion (fecha_factura, fecha_pago, valor_total, id_estado_fk, id_ingreso_fk, fecha_vencimiento) 
+				VALUES ('$fechaActual','0000-00-00','$valor_total','14','$id_ingreso','$fechaVencimiento')"; 
+        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
+        $res->execute(); //Ejecuta la consulta
+		//finalizar la generación de la factura
         $sql ="select * from empleado where id_empleado=$id"; 
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
         $res->execute(); //Ejecuta la consulta
