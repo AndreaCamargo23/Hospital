@@ -91,8 +91,7 @@ $(document).ready(function() {
         texto = "";
         //permite que no salgan datos raros en el valor de la variable 
         valorCama = $.trim($("#valorCama").val());
-        estado = $.trim($("#estado").val());
-
+		tipo = $.trim($("#tipo").val());
         //usar el formato de AJAX para el tratamiento de los datos 
         $.ajax({
             url: "../baseDatos/crudHabitacion.php",
@@ -101,7 +100,7 @@ $(document).ready(function() {
             data: {
                 id_habi: id_habi,
 				valorCama: valorCama,
-				estado: estado,
+				tipo: tipo,
                 opcion: opcion
             },
             success: function(data) {

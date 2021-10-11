@@ -7,7 +7,7 @@ $link = $obBD->Conectar(); //crear conexion
 //datos de variables del formulario
 $id_habi=(isset($_POST['id_habi']))?$_POST['id_habi']:'';
 $valorCama=(isset($_POST['valorCama']))?$_POST['valorCama']:'';
-$estado=(isset($_POST['estado']))?$_POST['estado']:'';
+$tipo=(isset($_POST['tipo']))?$_POST['tipo']:'';
 $opciones=(isset($_POST['opcion']))?$_POST['opcion']:''; 
 
 switch($opciones){
@@ -29,8 +29,8 @@ switch($opciones){
     
     case 2://insertar datos de la cama
 	//try{
-		$sql ="insert into cama (valor_c,id_estado_fk,id_habitacion_fk)
-		values ('$valorCama','$estado','$id_habi');";
+		$sql ="insert into cama (valor_c,id_estado_fk,id_habitacion_fk,id_tipo_fk)
+		values ('$valorCama','1','$id_habi','$tipo');";
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
         $res->execute(); //Ejecuta la consulta
 		$data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector

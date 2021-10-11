@@ -20,7 +20,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="./img/hospital.ico" rel="icon" type="ico">
-    <title>Habitaciones Hospital</title>
+    <title>Ingresos</title>
 
     <!-- Custom fonts for this template -->
     <link href="../librerias/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -65,11 +65,7 @@ session_start();
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <?php 
-                    if($_SESSION['rol']==1){
-                ?>
-                <a class="nav-link" href="indexAdmi.php"><?php }else{?>
-                    <a class="nav-link" href="indexEmple.php"><?php } ?>
+                <a class="nav-link" href="indexAdmi.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Principal</span></a>
             </li>
@@ -82,7 +78,7 @@ session_start();
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-users-cog"></i>
                     <span>Usuarios</span>
@@ -104,7 +100,7 @@ session_start();
                 </div>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="servicios.php">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-stethoscope"></i>
                     <span>Servicios</span></a>
             </li>
@@ -127,7 +123,7 @@ session_start();
                     <i class="fas fa-fw fa-procedures"></i>
                     <span>Camas</span></a>
             </li>
-			<li class="nav-item active">
+			<li class="nav-item">
                 <a class="nav-link" href="habitacion.php">
                     <i class="fas fa-fw fa-hospital"></i>
                     <span>Habitacion</span></a>
@@ -146,9 +142,9 @@ session_start();
                 <div id="collapseInformes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestionar:</h6>
-                        <a class="collapse-item" href="#">Camas</a>
+                        <a class="collapse-item" href="usuarios.php">Camas</a>
                         <a class="collapse-item" href="infoFact.php">Facturacion</a>
-                        <a class="collapse-item" href="#">Servicios</a>
+                        <a class="collapse-item" href="paciente.php">Servicios</a>
                     </div>
                 </div>
             </li>
@@ -374,18 +370,18 @@ session_start();
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Habitaciones</h1>
-                    <p class="mb-4">En el siguiente apartado se identifican todas las habitaciones que se encuentran en el hospital.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Usuarios</h1>
+                    <p class="mb-4">En el siguiente apartado se muestran todos los usuarios creados, agregar un nuevo usuario; o editar los usuarios ya creados</p>
                 
                     <!--boton para agregar registro-->
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
-                                <button type="button" id="btnAgregar" class="btn btn-info" data-toggle="modalHabitacion">
+                                <button type="button" id="btnAgregar" class="btn btn-info" data-toggle="modalAgregar">
                                         <span class="icon text-white-50">
-                                            <i class="fas fa-book-medical"></i>
+                                            <i class="fas fa-user-plus"></i>
                                         </span>
-                                        <span class="text">Agregar Habitacion</span>                                    
+                                        <span class="text">Agregar Usuario</span>                                    
                                 </button>
                             </div>
                         </div>
@@ -394,27 +390,29 @@ session_start();
                     <!-- DataTales Example -->
                     <div class="card shadow mb-8">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Habitaciones</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Consulta Usuarios</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                   <table id="tablaHabitacion" class="table table-bordered">
+                                   <table id="tablaUsuarios" class="table table-bordered">
 									  <thead class="text-center"> 
 										<tr>
-										  <th>Id Habitacion</th>
-										  <th>Cantidad de camas</th>
-										  <th>Estado</th>
-										  <th>Camas disponibles</th>
-										  <th>Acciones</th>
+										  <th>ID</th>
+										  <th>USUARIO</th>
+										  <th>EMAIL</th>
+										  <th>ROL</th>
+										  <th>ESTADO</th>
+										  <th>ACCIONES</th>
 										</tr>
 									  </thead>
 									  <tfoot class="text-center">
 									  <tr>
-										  <th>Id Habitacion</th>
-										  <th>Cantidad de camas</th>
-										  <th>Estado</th>
-										  <th>Camas disponibles</th>
-										  <th>Acciones</th>
+										  <th>ID</th>
+										  <th>USUARIO</th>
+										  <th>EMAIL</th>
+										  <th>ROL</th>
+										  <th>ESTADO</th>
+										  <th>ACCIONES</th>
 										</tr>
 									  </tfoot>
 									  <tbody>
@@ -458,7 +456,7 @@ session_start();
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Seguro que quiere salir?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -471,9 +469,9 @@ session_start();
             </div>
         </div>
     </div>
-    <!-- Modal Agregar servicio-->
+    <!-- Modal Agregar usuario-->
 
- <div class="modal fade" id="modalHabitacion" tabindex="-1" aria-labelledby="modalHabitacion" aria-hidden="true">
+ <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalUsuario" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -482,112 +480,74 @@ session_start();
                         <span aria-hidden="true">×</span>
         </button>
       </div>
-      <!--FORMULARIO-->
-        <form id="formHabitacion">      
+      <!--FORMULARIO DE INSCRIPCION DE ALUMNOS-->
+        <form id="formUsuario">      
             <div class="modal-body">
             <div class="row">            
                 <div class="col-lg-6">
                   <div class="form-group">
-                      <label class="col-form-label">Numero de habitacion</label>
-                      <input type="number" class="form-control" placeholder="402" id="id_habi" required>
+                      <label class="col-form-label">Email</label>
+                      <input type="email" class="form-control" placeholder="ejemplo@gmail.com" id="email" required>
                   </div> 
                 </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                      <label class="col-form-label" id="passwd1">Contraseña</label>
+                      <input type="password" class="form-control" placeholder="" maxlength="40" minlength="8" id="passwd" required>
+                  </div> 
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                      <label class="col-form-label">Nombre de Usuario</label>
+                      <input type="text" class="form-control" placeholder="" id="nomUsua" pattern="[A-Za-z0-9]+" title="Solo seleccione letras y números, no se aceptan caracteres especiales" maxlength="50" minlength="10" required>
+                  </div> 
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Rol</label>
+                      <select class="form-select" id="rol" aria-label="Default select example">
+                        <option selected>Seleccione una opción</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Empleado</option>
+                        <option value="3">Paciente</option>
+                      </select>
+                  </div> 
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Estado</label>
+                      <select class="form-select" id="estado" aria-label="Default select example">
+                        <option selected>Seleccione una opción</option>
+                        <option value="1">Activo</option>
+                        <option value="2">Inactivo</option>
+                        <option value="3">Bloqueado</option>
+                      </select>
+                  </div> 
+                </div>
+				<div class="col-lg-6">
+                  <div class="form-group">                    
+						<div id="" class="ax_default heading_3" data-label="codigo">
+						  <div></div>
+						  <div>
+						  <?php $codigo=codigo();?>
+							<label class="col-form-label" style="font-weight: bold;">Codigo de recuperación</label>
+							 <input type="text" class="form-control" value='<?php echo rand()?>' id="codigo" disabled="true" required>
+						  </div>
+						</div>
+                  </div> 
+                </div>
+				
             </div>
             </div>
         
         <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <button type="submit" id="btnGuardar" class="btn btn-primary">Agregar</button>
+            <button type="submit" id="btnGuardar" class="btn btn-primary">Crear Usuario</button>
         </div>
         </form>
       </div>
     </div>
   </div>
-  <!--Modal para registrar las camas-->
-  <div class="modal fade" id="Disponibles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registro de camas</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-				<form id="formCama">      
-					<div class="modal-body">
-					<div class="row">            
-						<div class="col-lg-6">
-						  <div class="form-group">
-							  <label class="col-form-label" id="passwd1">Valor de la cama</label>
-							  <input type="number" class="form-control" placeholder="$"id="valorCama" required>
-						  </div> 
-						</div>
-						<div class="col-lg-6">
-					  <div class="form-group">
-						<label class="col-form-label">Tipo</label>
-						  <select class="form-select" id="tipo" aria-label="Default select example">
-							<option selected>Seleccione una opción</option>
-							<?php
-							include '../baseDatos/conexionbd.php'; 
-							//Creación del objeto de la clase 
-							$obBD = new Conexion(); 
-							$link = $obBD->Conectar();
-							$sql = "select * from tipo"; 
-							$res = $link->prepare($sql);//Prepara la consulta para su ejecución
-							$res->execute(); //Ejecuta la consulta 
-							$row = $res->fetchAll(PDO::FETCH_ASSOC);
-							//cuando ya no hayan datos se va a generar el ciclo
-							for($i=0; $i<count($row); $i++){
-								print "<option value=".$row[$i]['id_tipo'].">".$row[$i]['tipo']."</option>";
-							}							 	
-						?>
-						  </select>
-					  </div> 
-					</div>
-					</div>
-					</div>				
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					<button type="submit" id="btnGuardar2" class="btn btn-primary">Agregar</button>
-				</div>
-				</form>
-            </div>
-        </div>
-    </div>
-	</div>
-	
-	<!--Modal para ver pacientes-->
-  <div class="modal fade" id="pacientes" tabindex="-1" role="dialog" aria-labelledby="pacientes" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="pacientes">Pacientes que estan en la habitacion</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-					<table id="tabla2" class="table table-bordered">
-						<thead class="text-center"> 
-							<tr>
-							  <th>Id Paciente</th>
-						      <th>Nombre</th>
-							  <th>Apellido</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-                <div class="modal-footer">
-                    <a class="btn btn-primary" href="">Ok</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
         <!-- Bootstrap core JavaScript-->
     <script src="../librerias/jquery/jquery.min.js"></script>
@@ -605,7 +565,7 @@ session_start();
     <script type="text/javascript" src="../librerias/DataTables/datatables.min.js"></script>  
 
     <!-- main del java scrip -->
-	<script src="./js/data-habitacion.js"></script>
+	<script src="./js/data-usuarios.js"></script>
     <!--Notificaciones-->
 	<script src="../librerias/swa2/dist/sweetalert2.min.js"></script>
 
