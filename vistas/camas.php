@@ -65,7 +65,11 @@ session_start();
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="indexAdmi.php">
+                <?php 
+                    if($_SESSION['rol']==1){
+                ?>
+                <a class="nav-link" href="indexAdmi.php"><?php }else{?>
+                    <a class="nav-link" href="indexEmple.php"><?php } ?>
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Principal</span></a>
             </li>
@@ -359,23 +363,25 @@ session_start();
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+				<h1 class="h3 mb-2 text-gray-800">Camas</h1>
+				<p class="mb-4">Camas que se encuentran creadas en el hospital.</p>
+					<div class="col-lg-12 mb-4">							
+								<button type="button" id="btnAgregar" class="btn btn-primary" data-toggle="modalCama">
+                                    <span class="icon text-white-50">
+										<i class="fas fa-bed"></i>
+                                    </span>
+                                    <span class="text">Agregar Cama</span>                                    
+                                </button>															
+					</div>
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Camas</h1>
-                    <p class="mb-4">Camas que se encuentran creadas en el hospital.</p>
-                
+                                    
                     <!--boton para agregar registro-->
                     <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="button" id="btnAgregar" class="btn btn-info" data-toggle="modalAgregar">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-bed"></i>
-                                        </span>
-                                        <span class="text">Agregar Cama</span>                                    
-                                </button>
-                            </div>
-                        </div>
+                        <div class="row">							
+                            <div class="col-lg-6">
+                                
+                            </div>							
+                        </div>				
                     </div>
                     <br>
                     <!-- DataTales Example -->
@@ -385,7 +391,7 @@ session_start();
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                   <table id="tablaUsuarios" class="table table-bordered">
+                                   <table id="tablaCama" class="table table-bordered">
 									  <thead class="text-center"> 
 										<tr>
 										  <th>No cama</th>
@@ -398,11 +404,11 @@ session_start();
 									  </thead>
 									  <tfoot class="text-center">
 									  <tr>
-										  <th>ID</th>
-										  <th>USUARIO</th>
-										  <th>EMAIL</th>
-										  <th>ROL</th>
-										  <th>ESTADO</th>
+										  <th>No cama</th>
+										  <th>Valor Cama</th>
+										  <th>Tipo</th>
+										  <th>Habitacion</th>
+										  <th>Estado</th>
 										  <th>ACCIONES</th>
 										</tr>
 									  </tfoot>
@@ -447,7 +453,7 @@ session_start();
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Seguro que deasea salir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -462,45 +468,62 @@ session_start();
     </div>
     <!-- Modal Agregar usuario-->
 
- <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalUsuario" aria-hidden="true">
+ <div class="modal fade" id="modalCama" tabindex="-1" aria-labelledby="modalCama" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalUsuario"></h5>
+        <h5 class="modal-title" id="modalCama"></h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
         </button>
       </div>
       <!--FORMULARIO DE INSCRIPCION DE ALUMNOS-->
-        <form id="formUsuario">      
+        <form id="formCama">      
             <div class="modal-body">
             <div class="row">            
                 <div class="col-lg-6">
                   <div class="form-group">
-                      <label class="col-form-label">Email</label>
-                      <input type="email" class="form-control" placeholder="ejemplo@gmail.com" id="email" required>
+                      <label class="col-form-label">Valor Cama</label>
+                      <input type="number" class="form-control" placeholder="$00000" id="valor_c" required>
                   </div> 
                 </div>
-                <div class="col-lg-6">
+				<div class="col-lg-6">
                   <div class="form-group">
-                      <label class="col-form-label" id="passwd1">Contraseña</label>
-                      <input type="password" class="form-control" placeholder="" maxlength="40" minlength="8" id="passwd" required>
-                  </div> 
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                      <label class="col-form-label">Nombre de Usuario</label>
-                      <input type="text" class="form-control" placeholder="" id="nomUsua" pattern="[A-Za-z0-9]+" title="Solo seleccione letras y números, no se aceptan caracteres especiales" maxlength="50" minlength="10" required>
-                  </div> 
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Rol</label>
-                      <select class="form-select" id="rol" aria-label="Default select example">
+                    <label class="col-form-label">Tipo</label>
+                      <select class="form-select" id="tipo" aria-label="Default select example">
                         <option selected>Seleccione una opción</option>
-                        <option value="1">Administrador</option>
-                        <option value="2">Empleado</option>
-                        <option value="3">Paciente</option>
+                        <?php
+							include '../baseDatos/conexionbd.php'; 
+							//Creación del objeto de la clase 
+							$obBD = new Conexion(); 
+							$link = $obBD->Conectar();
+							$sql = "select * from tipo"; 
+							$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+							$res->execute(); //Ejecuta la consulta 
+							$row = $res->fetchAll(PDO::FETCH_ASSOC);
+							//cuando ya no hayan datos se va a generar el ciclo
+							for($i=0; $i<count($row); $i++){
+								print "<option value=".$row[$i]['id_tipo'].">".$row[$i]['tipo']."</option>";
+							}							 	
+						?>
+                      </select>
+                  </div> 
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Habitacion</label>
+                      <select class="form-select" id="habitacion" aria-label="Default select example">
+                        <option selected>Seleccione una opción</option>
+                        <?php
+							$sql = "select * from habitacion"; 
+							$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+							$res->execute(); //Ejecuta la consulta 
+							$row = $res->fetchAll(PDO::FETCH_ASSOC);
+							//cuando ya no hayan datos se va a generar el ciclo
+							for($i=0; $i<count($row); $i++){
+								print "<option value=".$row[$i]['id_habi'].">".$row[$i]['id_habi']."</option>";
+							}							 	
+						?>
                       </select>
                   </div> 
                 </div>
@@ -511,30 +534,17 @@ session_start();
                         <option selected>Seleccione una opción</option>
                         <option value="1">Activo</option>
                         <option value="2">Inactivo</option>
-                        <option value="3">Bloqueado</option>
+						<option value="11">Ocupada</option>
                       </select>
                   </div> 
-                </div>
-				<div class="col-lg-6">
-                  <div class="form-group">                    
-						<div id="" class="ax_default heading_3" data-label="codigo">
-						  <div></div>
-						  <div>
-						  <?php $codigo=codigo();?>
-							<label class="col-form-label" style="font-weight: bold;">Codigo de recuperación</label>
-							 <input type="text" class="form-control" value='<?php echo rand()?>' id="codigo" disabled="true" required>
-						  </div>
-						</div>
-                  </div> 
-                </div>
-				
+                </div>				
             </div>
             </div>
         
-        <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <button type="submit" id="btnGuardar" class="btn btn-primary">Crear Usuario</button>
-        </div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+				<button type="submit" id="btnGuardar" class="btn btn-primary">Crear Cama</button>
+			</div>
         </form>
       </div>
     </div>
@@ -556,7 +566,7 @@ session_start();
     <script type="text/javascript" src="../librerias/DataTables/datatables.min.js"></script>  
 
     <!-- main del java scrip -->
-	<script src="./js/data-usuarios.js"></script>
+	<script src="./js/funcioncama.js"></script>
     <!--Notificaciones-->
 	<script src="../librerias/swa2/dist/sweetalert2.min.js"></script>
 

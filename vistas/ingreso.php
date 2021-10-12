@@ -78,7 +78,7 @@ session_start();
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-users-cog"></i>
                     <span>Usuarios</span>
@@ -100,26 +100,26 @@ session_start();
                 </div>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="servicios.php">
                     <i class="fas fa-fw fa-stethoscope"></i>
                     <span>Servicios</span></a>
             </li>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="facturacion.php">
                     <i class="fas fa-fw fa-file-invoice-dollar"></i>
                     <span>Facturas</span></a>
             </li>
 			<!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+            <li class="nav-item active">
+                <a class="nav-link" href="ingreso.php">
                     <i class="fas fa-fw fa-book-medical"></i>
                     <span>Ingreso</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="camas.php">
                     <i class="fas fa-fw fa-procedures"></i>
                     <span>Camas</span></a>
             </li>
@@ -166,15 +166,6 @@ session_start();
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Configuracion</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="#">Colors</a>
-                        <a class="collapse-item" href="#">Borders</a>
-                        <a class="collapse-item" href="#">Animations</a>
-                        <a class="collapse-item" href="#">Other</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Sidebar Toggler (Sidebar) -->
@@ -370,8 +361,8 @@ session_start();
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Usuarios</h1>
-                    <p class="mb-4">En el siguiente apartado se muestran todos los usuarios creados, agregar un nuevo usuario; o editar los usuarios ya creados</p>
+                    <h1 class="h3 mb-2 text-gray-800">Historias Clinicas</h1>
+                    <p class="mb-4">Historias clinicas de los pacientes y la información de cada una.</p>
                 
                     <!--boton para agregar registro-->
                     <div class="container">
@@ -379,9 +370,9 @@ session_start();
                             <div class="col-lg-12">
                                 <button type="button" id="btnAgregar" class="btn btn-info" data-toggle="modalAgregar">
                                         <span class="icon text-white-50">
-                                            <i class="fas fa-user-plus"></i>
+                                            <i class="fas fa-notes-medical"></i>
                                         </span>
-                                        <span class="text">Agregar Usuario</span>                                    
+                                        <span class="text">Crear Historia Clinica</span>                                    
                                 </button>
                             </div>
                         </div>
@@ -390,29 +381,35 @@ session_start();
                     <!-- DataTales Example -->
                     <div class="card shadow mb-8">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Consulta Usuarios</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Historia Clinica</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                   <table id="tablaUsuarios" class="table table-bordered">
+                                   <table id="tablaIngreso" class="table table-bordered">
 									  <thead class="text-center"> 
 										<tr>
-										  <th>ID</th>
-										  <th>USUARIO</th>
-										  <th>EMAIL</th>
-										  <th>ROL</th>
-										  <th>ESTADO</th>
-										  <th>ACCIONES</th>
+										  <th>Número ingreso</th>
+										  <th>Fecha de ingreso</th>
+										  <th>Fecha de salida</th>
+										  <th>Descripción</th>
+										  <th>Nombre</th>
+										  <th>Apellido</th>
+										  <th>Habitacion</th>
+										  <th>Cama</th>
+										  <th>Acciones</th>
 										</tr>
 									  </thead>
 									  <tfoot class="text-center">
 									  <tr>
-										  <th>ID</th>
-										  <th>USUARIO</th>
-										  <th>EMAIL</th>
-										  <th>ROL</th>
-										  <th>ESTADO</th>
-										  <th>ACCIONES</th>
+										  <th>Número ingreso</th>
+										  <th>Fecha de ingreso</th>
+										  <th>Fecha de salida</th>
+										  <th>Descripción</th>
+										  <th>Nombre</th>
+										  <th>Apellido</th>
+										  <th>Habitacion</th>
+										  <th>Cama</th>
+										  <th>Acciones</th>
 										</tr>
 									  </tfoot>
 									  <tbody>
@@ -456,7 +453,7 @@ session_start();
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Seguro que desea cerrar sesion?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -471,79 +468,78 @@ session_start();
     </div>
     <!-- Modal Agregar usuario-->
 
- <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalUsuario" aria-hidden="true">
+ <div class="modal fade" id="modalIngreso" tabindex="-1" aria-labelledby="modalIngreso" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalUsuario"></h5>
+        <h5 class="modal-title" id="modalIngreso"></h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
         </button>
       </div>
       <!--FORMULARIO DE INSCRIPCION DE ALUMNOS-->
-        <form id="formUsuario">      
+        <form id="formIngreso">      
             <div class="modal-body">
             <div class="row">            
                 <div class="col-lg-6">
                   <div class="form-group">
-                      <label class="col-form-label">Email</label>
-                      <input type="email" class="form-control" placeholder="ejemplo@gmail.com" id="email" required>
+                      <label class="col-form-label">Fecha Ingreso</label>
+                      <input type="date" class="form-control" id="starDate" required>
                   </div> 
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                      <label class="col-form-label" id="passwd1">Contraseña</label>
-                      <input type="password" class="form-control" placeholder="" maxlength="40" minlength="8" id="passwd" required>
+                      <label class="col-form-label" id="passwd1">Descripción</label> 
+					  <textarea name="textarea" rows="3" class="form-control" cols="30" id="descripcion" placeholder="Ingrese la descripcion" required></textarea>
                   </div> 
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                      <label class="col-form-label">Nombre de Usuario</label>
-                      <input type="text" class="form-control" placeholder="" id="nomUsua" pattern="[A-Za-z0-9]+" title="Solo seleccione letras y números, no se aceptan caracteres especiales" maxlength="50" minlength="10" required>
-                  </div> 
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Rol</label>
+                    <label class="col-form-label">Paciente</label>
                       <select class="form-select" id="rol" aria-label="Default select example">
                         <option selected>Seleccione una opción</option>
-                        <option value="1">Administrador</option>
-                        <option value="2">Empleado</option>
-                        <option value="3">Paciente</option>
+                        <?php
+							include '../baseDatos/conexionbd.php'; 
+							//Creación del objeto de la clase 
+							$obBD = new Conexion(); 
+							$link = $obBD->Conectar();
+							$sql = "select id_paciente, concat(nombre,apellido) from paciente"; 
+							$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+							$res->execute(); //Ejecuta la consulta 
+							$row = $res->fetchAll(PDO::FETCH_ASSOC);
+							//cuando ya no hayan datos se va a generar el ciclo
+							for($i=0; $i<count($row); $i++){
+								print "<option value=".$row[$i]['id_paciente'].">".$row[$i]['concat(nombre,apellido)']."</option>";
+							}							 	
+						?>
                       </select>
                   </div> 
-                </div>
-                <div class="col-lg-6">
+                </div>				
+					<div class="col-lg-6">
                   <div class="form-group">
-                    <label class="col-form-label">Estado</label>
-                      <select class="form-select" id="estado" aria-label="Default select example">
+                    <label class="col-form-label">Cama</label>
+                      <select class="form-select" id="cama" aria-label="Default select example">
                         <option selected>Seleccione una opción</option>
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
-                        <option value="3">Bloqueado</option>
+					<?php
+							$sql = "select * from cama where id_estado_fk='1'"; 
+							$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+							$res->execute(); //Ejecuta la consulta 
+							$row = $res->fetchAll(PDO::FETCH_ASSOC);
+							//cuando ya no hayan datos se va a generar el ciclo
+							for($i=0; $i<count($row); $i++){
+								print "<option value=".$row[$i]['id_cama'].">".$row[$i]['id_cama']."</option>";
+							}	
+					?>
                       </select>
                   </div> 
-                </div>
-				<div class="col-lg-6">
-                  <div class="form-group">                    
-						<div id="" class="ax_default heading_3" data-label="codigo">
-						  <div></div>
-						  <div>
-						  <?php $codigo=codigo();?>
-							<label class="col-form-label" style="font-weight: bold;">Codigo de recuperación</label>
-							 <input type="text" class="form-control" value='<?php echo rand()?>' id="codigo" disabled="true" required>
-						  </div>
-						</div>
-                  </div> 
-                </div>
-				
+                </div>	
             </div>
             </div>
         
-        <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <button type="submit" id="btnGuardar" class="btn btn-primary">Crear Usuario</button>
-        </div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+				<button type="submit" id="btnGuardar" class="btn btn-primary">Crear Ingreso</button>
+			</div>
         </form>
       </div>
     </div>
@@ -565,7 +561,7 @@ session_start();
     <script type="text/javascript" src="../librerias/DataTables/datatables.min.js"></script>  
 
     <!-- main del java scrip -->
-	<script src="./js/data-usuarios.js"></script>
+	<script src="./js/data-ingreso.js"></script>
     <!--Notificaciones-->
 	<script src="../librerias/swa2/dist/sweetalert2.min.js"></script>
 

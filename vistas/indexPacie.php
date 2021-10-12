@@ -240,7 +240,6 @@
 										</div>
 									</div>									
 								</div>
-
 							</div>
 							<div class="col-lg-6 mb-4">
 								<div class="card shadow mb-4">
