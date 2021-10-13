@@ -19,7 +19,7 @@ $(document).ready(function() {
             { "data": "apellido" },
 			{ "data": "id_habi" },
             { "data": "id_cama" },
-            { "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-success btn-sm btnEditar' title='Editar'><i class='fas fa-user-edit'></i></button><button class='btn btn-dark btn-sm btnBorrar' title='Inactivar'><i class='fas fa-user-slash'></i></button></div></div>" }
+            { "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-outline-success btn-sm btnAgregarS' title='Agregar Servicio'><i class='fas fa-plus-circle'></i></button><button class='btn btn-outline-info btn-sm btnAgregarE' title='Agregar Empleado'><i class='fas fa-user-plus'></i></button></div></div><div class='text-center'><div class='btn-group'><button class='btn btn-outline-warning btn-sm btnConsultar' title='Ver servicios y empleados'><i class='fas fa-search-location'></i></button><button class='btn btn-outline-secondary btn-sm btnFactura' title='Generar factura, descargar historia clinica'><i class='fas fa-sign-out-alt'></i></button></div></div>" }
         ]
     });
 
@@ -28,30 +28,28 @@ $(document).ready(function() {
         //evitar la acción del submit, para recargar la página
         e.preventDefault();
         texto = "";
-        //permite que no salgan datos raros en el valor de la variable 
-        id = $.trim($("#id").val());
-        nom = $.trim($("#nom").val());
-        ape = $.trim($("#ape").val());
-        dire = $.trim($("#dire").val());
-        fecha_nac = $.trim($("#fecha_nac").val());
-        email = $.trim($("#email").val());
-        cargo = $.trim($("#cargo").val());
-        estado = $.trim($("#estado").val());
-
+        //permite que no salgan datos raros en el valor de la variable
+        fecha_ingreso = $.trim($("#starDate").val());
+		fecha_salida = $.trim($("#endDate").val());
+        descripcion = $.trim($("#descripcion").val());
+        id_paciente = $.trim($("#paciente").val());
+        cama = $.trim($("#cama").val());
+		id_empleado = $.trim($("#empleado").val());
+		id_servicio = $.trim($("#servicio").val());
         //usar el formato de AJAX para el tratamiento de los datos 
         $.ajax({
-            url: "../baseDatos/crudEmpleado.php",
+            url: "../baseDatos/crudIngreso.php",
             type: "POST",
             datatype: "json",
             data: {
                 id: id,
-                nom: nom,
-                ape: ape,
-                dire: dire,
-                fecha_nac: fecha_nac,
-                email: email,
-                cargo: cargo,
-                estado: estado,
+                fecha_ingreso: fecha_ingreso,
+				fecha_salida: fecha_salida,
+                descripcion: descripcion,
+                id_paciente: id_paciente,
+				id_servicio: id_servicio,
+				id_empleado: id_empleado,
+                cama: cama,
                 opcion: opcion
             },
             success: function(data) {
@@ -67,16 +65,16 @@ $(document).ready(function() {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    tablaEmpleados.ajax.reload(null, false);
+                    tablaIngreso.ajax.reload(null, false);
                 }
             }
         });
-        $('#modalEmpleado').modal('hide');
+        $('#modalIngreso').modal('hide');
     });
     $("#btnAgregar").click(function() {
         opcion = 1; //Insertar o registrar el alumno 
         //Referenciar el formulario
-        $('#formEmpleado').trigger("reset"); //Funcion para resetear o limpiar el formulario 
+        $('#formIngreso').trigger("reset"); //Funcion para resetear o limpiar el formulario 
         //Referenciar el modal y agregar el titulo en el modal
         $(".modal-header").css("background-color", "");
         $(".modal-header").css("color", "black");
@@ -85,70 +83,125 @@ $(document).ready(function() {
         $("#modalIngreso").modal('show');
     });
     //editar registros
-    $(document).on('click', ".btnEditar", function() {
+    $(document).on('click', ".btnAgregarS", function() {
         fila = $(this).closest('tr'); //manipular el contenido de la clase
         id = parseInt(fila.find('td:eq(0)').text()); //trae el codigo en la posicion 0
-        opcion = 5;
-        email = "";
-        datos = null;
+        opcion = 5;//Agregar servicio
+		document.getElementById("servicioDiv").style.display = "block";//Ocultar el div 
+        //Referenciar el modal y agregar el titulo en el modal
+        $(".modal-header").css("background-color", "");
+        $(".modal-header").css("color", "black");
+        $(".modal-title").text("Agregar Servicio");
+		document.getElementById("empleadoDiv").style.display = "none";//Ocultar el div 
+        $("#modalAgregar").modal('show');
+        $("#botonAgregar").text("Agregar");
+    });
+	$(document).on('click', ".btnAgregarE", function() {
+        fila = $(this).closest('tr'); //manipular el contenido de la clase
+        id = parseInt(fila.find('td:eq(0)').text()); //trae el codigo en la posicion 0
+        opcion = 2;//Agregar servicio
+        //Referenciar el modal y agregar el titulo en el modal
+		document.getElementById("empleadoDiv").style.display = "block";
+        $(".modal-header").css("background-color", "");
+        $(".modal-header").css("color", "black");
+        $(".modal-title").text("Agregar Empleado");
+		document.getElementById("servicioDiv").style.display = "none";//Ocultar el div 
+        $("#modalAgregar").modal('show');
+        $("#botonAgregar").text("Agregar");
+    });
+	
+	$('#formAgregar').submit(function(e) {
+        //evitar la acción del submit, para recargar la página
+       e.preventDefault();
+        texto = "";
+        //permite que no salgan datos raros en el valor de la variable
+        
+		id_empleado = $.trim($("#empleado2").val());
+		id_servicio = $.trim($("#servicio2").val());
+        //usar el formato de AJAX para el tratamiento de los datos 
         $.ajax({
-            url: "../baseDatos/crudEmpleado.php",
+            url: "../baseDatos/crudIngreso.php",
             type: "POST",
             datatype: "json",
             data: {
                 id: id,
+				id_servicio: id_servicio,
+				id_empleado: id_empleado,
                 opcion: opcion
             },
             success: function(data) {
-                email = JSON.parse(data);
-                $("#id").val(email[0]["id_empleado"]);
-                $('#nom').val(email[0]["nombre"]);
-                $('#ape').val(email[0]["apellido"]);
-                $('#dire').val(email[0]["direccion"]);
-                $("#fecha_nac").val(email[0]["fecha_nac"]);
-                $('#email').val(email[0]["email"]);
-                $('#cargo').val(email[0]["id_cargo_fk"]);
-                $('#estado').val(email[0]["id_estado_fk"]);
+                if (data == "null") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al Registrar',
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cambios Guardados',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    tablaIngreso.ajax.reload(null, false);
+                }
             }
         });
-
-        opcion = 2;
-        //Referenciar el modal y agregar el titulo en el modal
-        $(".modal-header").css("background-color", "");
-        $(".modal-header").css("color", "black");
-        $(".modal-title").text("Modificar Información");
-        $("#modalEmpleado").modal('show');
-        $("#btnGuardar").text("Actualizar");
+        $('#modalAgregar').modal('hide');
+    });	
+	
+	
+    $(document).on("click", ".btnConsultar", function() {
+        Swal.fire({
+            icon: 'info',
+            title: 'Revision de empleados y servicios',
+            confirmButtonText: 'OK',
+        });
+		
+        fila = $(this); //manipular el contenido de la clase
+        id = parseInt($(this).closest('tr').find('td:eq(0)').text());
+		opcion = 7;		
+		$(document).ready(function() {
+			tabla1 = $('#tabla1').DataTable({
+				"ajax": {
+					"url": "../baseDatos/crudIngreso.php",
+					"method": 'POST',
+					"data": { id:id,opcion: opcion },
+					"dataSrc": ""
+				},
+				"columns": [
+					{ "data": "id_empleado" },
+					{ "data": "nombre" },
+					{ "data": "apellido" }					
+				]
+			});
+			opcion = 6;	
+			tabla2 = $('#tabla2').DataTable({
+				"ajax": {
+					"url": "../baseDatos/crudIngreso.php",
+					"method": 'POST',
+					"data": { id:id,opcion: opcion },
+					"dataSrc": ""
+				},
+				"columns": [
+					{ "data": "id_servicio" },
+					{ "data": "nombre" },
+					{ "data": "valor_s" }					
+				]
+			});
+			$("#ademas").modal('show');	
+		});
+		
     });
-    $(document).on("click", ".btnBorrar", function() {
-        fila = $(this).closest('tr'); //manipular el contenido de la clase
-        id = parseInt(fila.find('td:eq(0)').text()); //trae el codigo en la posicion 0);
-        opcion = 3;
-        var confirmacion = confirm("¿Esta seguro de marcar como inactivo el empleado con Identificación " + id + "?");
-        if (confirmacion) {
-            //enviar por medio de ajax la respuesta
-            $.ajax({
-                url: "../baseDatos/crudEmpleado.php",
-                type: "POST",
-                dataType: "json",
-                data: { opcion: opcion, id: id },
-                success: function(data) {
-                    //buscar la fila que selecionamos y la borramos
-                    if (data == "null") {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'No se pudo Inhabilitar el Empleado',
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Empleado quedo Inactivo',
-                        });
-                        tablaEmpleados.ajax.reload(null, false);
-                    }
-                }
-            });
-
-        }
+	$(document).on("click", ".btnFactura", function() {
+        Swal.fire({
+            icon: 'info',
+            title: 'Se acaba de generar su factura',
+            confirmButtonText: 'OK',
+        });
+		
+        fila = $(this); //manipular el contenido de la clase
+        id = parseInt($(this).closest('tr').find('td:eq(0)').text());
+		opcion = 7;	
+		
     });
 });

@@ -6,65 +6,77 @@ $obBD = new Conexion();
 $link = $obBD->Conectar(); //crear conexion 
 //datos de variables del formulario
 $id=(isset($_POST['id']))?$_POST['id']:''; 
-$nom=(isset($_POST['nom']))?$_POST['nom']:'';
-$ape=(isset($_POST['ape']))?$_POST['ape']:'';
-$dire=(isset($_POST['dire']))?$_POST['dire']:'';
-$fecha_nac=(isset($_POST['fecha_nac']))?$_POST['fecha_nac']:'';
-$email=(isset($_POST['email']))?$_POST['email']:'';
-$genero=(isset($_POST['genero']))?$_POST['genero']:'';
-$rh=(isset($_POST['rh']))?$_POST['rh']:'';
-$estado=(isset($_POST['estado']))?$_POST['estado']:'';
-$celu=(isset($_POST['celu']))?$_POST['celu']:'';
+$fecha_ingreso=(isset($_POST['fecha_ingreso']))?$_POST['fecha_ingreso']:'';
+$fecha_salida=(isset($_POST['fecha_salida']))?$_POST['fecha_salida']:'';
+$descripcion=(isset($_POST['descripcion']))?$_POST['descripcion']:'';
+$id_paciente=(isset($_POST['id_paciente']))?$_POST['id_paciente']:'';
+$cama=(isset($_POST['cama']))?$_POST['cama']:'';
+$id_servicio=(isset($_POST['id_servicio']))?$_POST['id_servicio']:'';
+$id_empleado=(isset($_POST['id_empleado']))?$_POST['id_empleado']:'';
 $opciones=(isset($_POST['opcion']))?$_POST['opcion']:''; 
 
 switch($opciones){
     case 1://Insertar datos
 	try{
-		$sql="INSERT INTO paciente (id_paciente,nombre,apellido,direccion,fecha_nac,email,celular,id_genero_fk,id_rh_fk,id_estado_fk)
-		VALUES ('$id','$nom','$ape','$dire','$fecha_nac','$email','$celu','$genero','$rh','$estado')";
+		//Crear el ingreso
+		$sql="INSERT INTO ingreso(fecha_ingreso, fecha_salida, descripcion, id_paciente_fk, id_cama_fk) 
+		VALUES ('$fecha_ingreso','$fecha_salida','$descripcion','$id_paciente','$cama')";
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
         $res->execute(); //Ejecuta la consulta
-        //Mostrar los datos insertado en la tabla
-        $sql ="select * from paciente order by id_paciente desc limit 1"; 
+		
+		//Mostrar los datos insertado en la tabla
+        $sql ="select * from ingreso where descripcion='$descripcion'"; 
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
         $res->execute(); //Ejecuta la consulta
         $data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector
+		$id=$data[0]['id_ingreso'];
+		//Agregar el servicio
+		$sql="INSERT INTO adquirir(id_servicio, id_ingreso) VALUES ('$id_servicio','$id')";
+        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
+        $res->execute(); //Ejecuta la consulta
+		//Agregar el empleado 
+		$sql="INSERT INTO atender(id_empleado, id_ingreso) VALUES ('$id_empleado','$id')";
+        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
+        $res->execute(); //Ejecuta la consulta
+        //Marcar la cama como ocupada
+		$sql="update cama set id_estado_fk='11' where id_cama='$cama'";
+        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
+        $res->execute(); //Ejecuta la consulta
 	} catch(Exception $ex){
 		$data = null; 
 	}
     break; 
     
-    case 2://Actualizar datos 
+    case 2://Agregar en atender
 	try{
-		$sql ="UPDATE paciente SET nombre='$nom',apellido='$ape',direccion='$dire',fecha_nac='$fecha_nac',email='$email',id_genero_fk='$genero',id_rh_fk='$rh',
-		id_estado_fk='$estado' WHERE id_paciente=$id";
+		$sql="INSERT INTO atender(id_empleado, id_ingreso) VALUES ('$id_empleado','$id')";
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
         $res->execute(); //Ejecuta la consulta
-        //Mostrar los datos insertdos en la tabla de Alumnos
-        $sql ="select * from paciente order by id_paciente desc limit 1"; 
-        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
-        $res->execute(); //Ejecuta la consulta
-        $data = $res->fetchAll(PDO::FETCH_ASSOC);
+		$data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector
 	} catch(Exception $ex){
 		$data = null; 
 	}        
         break; 
     
 
-    case 3://Cambiar estado a inactivo 
+    case 3://Lo voy a usar para cambiar el estado
       try{
-		$sql ="update paciente set id_estado_fk='7' where id_paciente=$id"; 
-        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
-        $res->execute(); //Ejecuta la consulta.
-		$fechaActual = date('Y-m-d');// obtenemos fecha actual
+		 //Cambia el estado del paciente
+		$sql ="update paciente set id_estado_fk='7' where id_paciente=$id_paciente"; 
+        $res = $link->prepare($sql);
+        $res->execute();
+		
+		//Calculo de la factura actual
+		$fechaActual = date('Y-m-d');
 		$dias = date("d", strtotime($fechaActual))+10;
 		$fechaVencimiento = date("Y", strtotime($fechaActual))."-".date("m", strtotime($fechaActual))."-".$dias;
-		// Agregar la fecha de salida en el ingreso
-		$sql ="update ingreso set fecha_salida='$fechaActual' where id_paciente_fk='$id'"; 
-        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
-        $res->execute(); //Ejecuta la consulta
 		
-		//generar la factura
+		// Agregar la fecha de salida en el ingreso
+		$sql ="update ingreso set fecha_salida='$fechaActual' where id_ingreso='$id'"; 
+        $res = $link->prepare($sql);
+        $res->execute(); 
+		
+		//GENERAR FACTURA
 		
 		//Consultar para el valor total
 		$sql ="select ingreso.id_ingreso, sum(valor_s), valor_c from ingreso left join adquirir on (ingreso.id_ingreso=adquirir.id_ingreso)
@@ -74,18 +86,18 @@ switch($opciones){
         $res = $link->prepare($sql);//Prepara la consulta para su ejecución
         $res->execute(); //Ejecuta la consulta
 		$data = $res->fetchAll(PDO::FETCH_ASSOC);
-		$valor_total=$data[0]['sum(valor_s)']+$data[0]['valor_c']; //obtenemos valor total	
-		$id_ingreso=$data[0]['id_ingreso']; 
-		//Insertar factura
+		
+		//Calcula el valor total
+		$valor_total=$data[0]['sum(valor_s)']+$data[0]['valor_c']; 
+		
+		//Crear Factura
 		$sql ="INSERT INTO facturacion (fecha_factura, fecha_pago, valor_total, id_estado_fk, id_ingreso_fk, fecha_vencimiento) 
-				VALUES ('$fechaActual','0000-00-00','$valor_total','14','$id_ingreso','$fechaVencimiento')"; 
-        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
-        $res->execute(); //Ejecuta la consulta
+				VALUES ('$fechaActual','0000-00-00','$valor_total','14','$id','$fechaVencimiento')"; 
+        $res = $link->prepare($sql);
+        $res->execute(); 
 		//finalizar la generación de la factura
-        $sql ="select * from empleado where id_empleado=$id"; 
-        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
-        $res->execute(); //Ejecuta la consulta
-        $data = $res->fetchAll(PDO::FETCH_ASSOC);
+		
+        //generar pdf
 	} catch(Exception $ex){
 		$data = null; 
 	}
@@ -103,11 +115,36 @@ switch($opciones){
         break; 
 		
     case 5://Consultar solo los datos de un solo usuario 
-        $sql ="select * from paciente where id_paciente=$id";
-        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
-        $res->execute(); //Ejecuta la consulta
-        $data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector
+        //Agregar el servicio
+		try{
+			$sql="INSERT INTO adquirir(id_servicio, id_ingreso) VALUES ('$id_servicio','$id')";
+			$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+			$res->execute(); //Ejecuta la consulta
+			$data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector
+		}catch (Exception $ex){
+			$data=null;
+		}		
         break;
+	case 6:
+		try{
+			$sql="select servicio.id_servicio,valor_s, nombre from ingreso left join adquirir on (ingreso.id_ingreso=adquirir.id_ingreso) left join servicio on (adquirir.id_servicio=servicio.id_servicio) where ingreso.id_ingreso='$id'";
+			$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+			$res->execute(); //Ejecuta la consulta
+			$data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector
+		}catch (Exception $ex){
+			$data=null;
+		}
+	break; 
+	case 7:
+		try{
+			$sql="select * from ingreso left join atender on (ingreso.id_ingreso=atender.id_ingreso) left join empleado on (atender.id_empleado=empleado.id_empleado) where ingreso.id_ingreso='$id'";
+			$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+			$res->execute(); //Ejecuta la consulta
+			$data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector
+		}catch (Exception $ex){
+			$data=null;
+		}
+	break;
     
 }
 print json_encode($data,JSON_UNESCAPED_UNICODE); 

@@ -487,6 +487,12 @@ session_start();
                       <input type="date" class="form-control" id="starDate" required>
                   </div> 
                 </div>
+				<div class="col-lg-6">
+                  <div class="form-group">
+                      <label class="col-form-label">Fecha Salida</label>
+                      <input type="date" class="form-control" id="endDate" required value="0000-00-00" disabled>
+                  </div> 
+                </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                       <label class="col-form-label" id="passwd1">Descripción</label> 
@@ -496,20 +502,20 @@ session_start();
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="col-form-label">Paciente</label>
-                      <select class="form-select" id="rol" aria-label="Default select example">
+                      <select class="form-select" id="paciente" aria-label="Default select example">
                         <option selected>Seleccione una opción</option>
                         <?php
 							include '../baseDatos/conexionbd.php'; 
 							//Creación del objeto de la clase 
 							$obBD = new Conexion(); 
 							$link = $obBD->Conectar();
-							$sql = "select id_paciente, concat(nombre,apellido) from paciente"; 
+							$sql = "select id_paciente, concat(nombre,' ',apellido) as nombreComple from paciente"; 
 							$res = $link->prepare($sql);//Prepara la consulta para su ejecución
 							$res->execute(); //Ejecuta la consulta 
 							$row = $res->fetchAll(PDO::FETCH_ASSOC);
 							//cuando ya no hayan datos se va a generar el ciclo
 							for($i=0; $i<count($row); $i++){
-								print "<option value=".$row[$i]['id_paciente'].">".$row[$i]['concat(nombre,apellido)']."</option>";
+								print "<option value=".$row[$i]['id_paciente'].">".$row[$i]['nombreComple']."</option>";
 							}							 	
 						?>
                       </select>
@@ -532,7 +538,43 @@ session_start();
 					?>
                       </select>
                   </div> 
-                </div>	
+                </div>
+					<div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Servicio Principal</label>
+                      <select class="form-select" id="servicio" aria-label="Default select example">
+                        <option selected>Seleccione una opción</option>
+					<?php
+							$sql = "select * from servicio"; 
+							$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+							$res->execute(); //Ejecuta la consulta 
+							$row = $res->fetchAll(PDO::FETCH_ASSOC);
+							//cuando ya no hayan datos se va a generar el ciclo
+							for($i=0; $i<count($row); $i++){
+								print "<option value=".$row[$i]['id_servicio'].">".$row[$i]['nombre']." Valor ".$row[$i]['valor_s']."</option>";
+							}	
+					?>
+                      </select>
+                  </div> 
+                </div>
+				<div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Empleado que atiende</label>
+                      <select class="form-select" id="empleado" aria-label="Default select example">
+                        <option selected>Seleccione una opción</option>
+					<?php
+							$sql = "select *, concat(nombre,' ',apellido) as nombreC from empleado"; 
+							$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+							$res->execute(); //Ejecuta la consulta 
+							$row = $res->fetchAll(PDO::FETCH_ASSOC);
+							//cuando ya no hayan datos se va a generar el ciclo
+							for($i=0; $i<count($row); $i++){
+								print "<option value=".$row[$i]['id_empleado'].">".$row[$i]['nombreC']."</option>";
+							}	
+					?>
+                      </select>
+                  </div> 
+                </div>					
             </div>
             </div>
         
@@ -544,6 +586,109 @@ session_start();
       </div>
     </div>
   </div>
+	<!-- Modal Salir-->
+    <div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog" aria-labelledby="modalAgregar" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAgregar">Agregar</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+				<form id="formAgregar">
+					<div class="col-lg-6" id="servicioDiv">
+					  <div class="form-group">
+						<label class="col-form-label">Servicio</label>
+						  <select class="form-select" id="servicio2" aria-label="Default select example">
+							<option selected>Seleccione una opción</option>
+						<?php
+								$sql = "select * from servicio"; 
+								$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+								$res->execute(); //Ejecuta la consulta 
+								$row = $res->fetchAll(PDO::FETCH_ASSOC);
+								//cuando ya no hayan datos se va a generar el ciclo
+								for($i=0; $i<count($row); $i++){
+									print "<option value=".$row[$i]['id_servicio'].">".$row[$i]['nombre']." Valor ".$row[$i]['valor_s']."</option>";
+								}	
+						?>
+						  </select>
+					  </div> 
+					</div>
+					<div class="col-lg-6" id="empleadoDiv">
+					  <div class="form-group">
+						<label class="col-form-label">Empleado</label>
+						  <select class="form-select" id="empleado2" aria-label="Default select example">
+							<option selected>Seleccione una opción</option>
+						<?php
+								$sql = "select *, concat(nombre,' ',apellido) as nombreC from empleado"; 
+								$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+								$res->execute(); //Ejecuta la consulta 
+								$row = $res->fetchAll(PDO::FETCH_ASSOC);
+								//cuando ya no hayan datos se va a generar el ciclo
+								for($i=0; $i<count($row); $i++){
+									print "<option value=".$row[$i]['id_empleado'].">".$row[$i]['nombreC']."</option>";
+								}	
+						?>
+						  </select>
+					  </div> 
+					</div>	
+								
+				</div>
+				
+                <div class="modal-footer">
+                    <button class="btn btn-primary"type="submit"  id="botonAgregar">Agregar</button>                    
+                </div>
+				</form>	
+            </div>
+        </div>
+    </div>
+	<!--Modal con tablas-->
+	<div class="modal fade" id="ademas" tabindex="-1" role="dialog" aria-labelledby="ademas" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ademas">Pacientes que estan en la habitacion</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+					<table id="tabla1" class="table table-bordered">
+						<thead class="text-center"> 
+							<tr>
+							  <th>Id Empleado</th>
+						      <th>Nombre</th>
+							  <th>Apellido</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							</tr>
+						</tbody>
+					</table>
+					<table id="tabla2" class="table table-bordered">
+						<thead class="text-center"> 
+							<tr>
+							  <th>Id Servicio</th>
+						      <th>Nombre</th>
+							  <th>Valor</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="">Ok</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  
 
         <!-- Bootstrap core JavaScript-->
     <script src="../librerias/jquery/jquery.min.js"></script>
