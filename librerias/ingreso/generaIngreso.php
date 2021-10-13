@@ -71,7 +71,7 @@
 			$dompdf->stream('factura_'.$noFactura.'.pdf',array('Attachment'=>0));//especificar la salida
 			exit;
 		}else{
-			echo "No se pudo generar la factura no existe."
+			echo "No se pudo generar la factura no existe.";
 		}
 	}
 
