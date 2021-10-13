@@ -107,6 +107,18 @@ switch($opciones){
         $res->execute(); //Ejecuta la consulta
         $data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector
         break;
+    case 6://historial
+        $sql ="select ingreso.id_ingreso, ingreso.descripcion,ingreso.fecha_ingreso,
+		concat(paciente.nombre,' ',paciente.apellido) as nom, fecha_nac, habitacion.id_habi, cama.id_cama,servicio.nombre
+		from ingreso left join paciente on (ingreso.id_paciente_fk=paciente.id_paciente)
+		left join cama on (ingreso.id_cama_fk=cama.id_cama) 
+        left join habitacion on (habitacion.id_habi=cama.id_habitacion_fk)
+        left join adquirir on (adquirir.id_ingreso = ingreso.id_ingreso)
+        left join servicio on (servicio.id_servicio = adquirir.id_servicio)";        
+        $res = $link->prepare($sql);//Prepara la consulta para su ejecución
+        $res->execute(); //Ejecuta la consulta
+        $data = $res->fetchAll(PDO::FETCH_ASSOC);//Va almacenar commo un vector        
+        break; 
     
 }
 print json_encode($data,JSON_UNESCAPED_UNICODE); 

@@ -1,13 +1,12 @@
-<?php
-function codigo(){
-	return $codigo=rand();
-}
-
-session_start();
+ 
+    <?php 
+    session_start();
     if($_SESSION['user']==null){
         header('Location:../login.php');
-    } 
+    }
+    
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +19,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="./img/hospital.ico" rel="icon" type="ico">
-    <title>Facturas Informe</title>
+    <title>Principal</title>
 
     <!-- Custom fonts for this template -->
     <link href="../librerias/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,7 +37,7 @@ session_start();
 	<!--ICONOS-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link href="../librerias/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <!--Notificaciones-->
+	<!--Notificaciones-->
 	<link rel="stylesheet" href="../librerias/swa2/dist/sweetalert2.min.css">
 
 
@@ -64,12 +63,8 @@ session_start();
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <?php 
-                    if($_SESSION['rol']==1){
-                ?>
-                <a class="nav-link" href="indexAdmi.php"><?php }else{?>
-                    <a class="nav-link" href="indexEmple.php"><?php } ?>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Principal</span></a>
             </li>
@@ -90,16 +85,7 @@ session_start();
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Agregar:</h6>
-                        <?php 
-                            if($_SESSION['rol']==1){                            
-                        ?>
-                        <a class="collapse-item" href="usuarios.php">Usuario</a>
-                        <a class="collapse-item" href="empleado.php">Empleado</a>
                         <a class="collapse-item" href="paciente.php">Paciente</a>
-                        <?php }else{
-
-                        ?>
-                        <a class="collapse-item" href="paciente.php">Paciente</a><?php }?>
                     </div>
                 </div>
             </li>
@@ -116,7 +102,7 @@ session_start();
             </li>
 			<!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="ingreso.php">
                     <i class="fas fa-fw fa-book-medical"></i>
                     <span>Ingreso</span></a>
             </li>
@@ -138,7 +124,7 @@ session_start();
 			<div class="sidebar-heading">
                 Gestion
             </div>
-			<li class="nav-item active">
+			<li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInformes" aria-expanded="true" aria-controls="collapseInformes">
                     <i class="fas fa-fw fa-info-circle"></i>
                     <span>Informes</span>
@@ -146,31 +132,13 @@ session_start();
                 <div id="collapseInformes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestionar:</h6>
-                        <a class="collapse-item" href="infoCamas">Camas</a>
+                        <a class="collapse-item" href="usuarios.php">Camas</a>
                         <a class="collapse-item" href="infoFact.php">Facturacion</a>
-                        <a class="collapse-item" href="#">Servicios</a>
+                        <a class="collapse-item" href="paciente.php">Servicios</a>
                     </div>
                 </div>
             </li>
-			<hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Divider 
-            <hr class="sidebar-divider">-->
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Configuracion</span>
-                </a>
-            </li>
+			<hr class="sidebar-divider d-none d-md-block">			
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -341,7 +309,7 @@ session_start();
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['user'];?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['user']; ?></span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -363,70 +331,116 @@ session_start();
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <!-- Content Row -->
+                    <div class="row">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Informe de Facturas</h1>
-                    <p class="mb-4">Obtenga la relación de facturas por un rango de fecha, y el total de dinero obtenido.</p>
-                
-                    <!--boton para agregar registro-->
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">							
-								<div class="flex-row d-flex justify-content-">
-									<div class="col-lg-7 col-11 px-1">
-										<div class="input-group input-daterange"> 
-											<label class="ml-3 form-control-placeholder" id="start-p" for="start">Start Date  </label>
-											<input type="date" id="start" class="form-control text-left ml-2">	
-											<label class="ml-3 form-control-placeholder" id="end-p" for="end">End Date </span></label> 
-											<input type="date" id="end" class="form-control text-left ml-2">
-										</div>
-									</div>
-									<div class="col-lg-2">
-									  <div class="form-group">
-										  <select class="form-select" id="rol" aria-label="Default select example">
-											<option selected>Seleccione una opción</option>
-											<option value="1">Generada</option>
-											<option value="2">Pagada</option>
-										  </select>
-									  </div> 									
-									</div>
-									<button type="button" id="btnAgregar" class="btn btn-primary" data-toggle="modalServicio" style="height:43px;">
-										<span class="icon text-white-50">
-											<i class="fas fa-file-pdf"></i>
-										</span>
-										<span class="text">Generar</span>                                    
-									</button>
-								</div>                                
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-md-12">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Cantidad de camas disponibles</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+											<?php
+											include '../baseDatos/conexionbd.php'; 
+											//Creación del objeto de la clase 
+											$obBD = new Conexion(); 
+											$link = $obBD->Conectar();
+											$sql = "select sum(id_cama) from cama where id_estado_fk=1"; 
+											$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+											$res->execute(); //Ejecuta la consulta 
+											$row = $res->fetchAll(PDO::FETCH_ASSOC);
+												//cuando ya no hayan datos se va a generar el ciclo
+												print $row[0]['sum(id_cama)']; 											
+											?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bed fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <br>
+
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        
+                        <div class="col-md-12">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Habitaciones con Pacientes
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+													<?php
+													//Creación del objeto de la clase 
+													$sql = "select count(*) from habitacion where id_estado_fk = 11"; 
+													$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+													$res->execute(); //Ejecuta la consulta 
+													$row = $res->fetchAll(PDO::FETCH_ASSOC);
+														//cuando ya no hayan datos se va a generar el ciclo
+														print $row[0]['count(*)']; 
+													$numero=$row[0]['count(*)'];
+													?>
+													</div>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="#" id="consulta">
+                                                    <div class="progress progress-sm mr-4">
+                                                        <div id="barhabi" class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="20"></div>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-md-12">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Servicios de cirugia realizados</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+											<?php
+													//Creación del objeto de la clase 
+													$sql = "select count(*) from ingreso where fecha_ingreso=now();"; 
+													$res = $link->prepare($sql);//Prepara la consulta para su ejecución
+													$res->execute(); //Ejecuta la consulta 
+													$row = $res->fetchAll(PDO::FETCH_ASSOC);
+														//cuando ya no hayan datos se va a generar el ciclo
+														print $row[0]['count(*)']; 
+													$numero=$row[0]['count(*)'];
+													?>
+											</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.container-fluid -->
-				<div class="card shadow mb-8">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Informes generados</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                   <table id="tablaServicio" class="table table-bordered">
-									  <thead class="text-center"> 
-										<tr>
-										  <th>No informe</th>
-										  <th>Tipo</th>
-										  <th>Start date</th>
-										  <th>End date</th>
-										  <th>Acciones</th>
-										</tr>
-									  </thead>
-									  <tbody>
-										<tr>
-										</tr>
-									  </tbody>
-								</table>
-                            </div>
-                        </div>
-                    </div>
+
             </div>
             <!-- End of Main Content -->
 
@@ -434,7 +448,7 @@ session_start();
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Your Website 2021</span>
                     </div>
                 </div>
             </footer>
@@ -451,12 +465,12 @@ session_start();
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Modal Salir-->
+    <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Desea cerrar sesion?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quiere salir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -469,7 +483,41 @@ session_start();
             </div>
         </div>
     </div>
-        <!-- Bootstrap core JavaScript-->
+    <div class="modal fade" id="ademas" tabindex="-1" role="dialog" aria-labelledby="ademas" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ademas">Pacientes que estan en la habitacion</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+					<table id="tabla1" class="table table-bordered" style="width:100%;">
+						<thead class="text-center"> 
+							<tr>
+							  <th>Id cama</th>
+						      <th>Habitacion</th>
+                              <th>Paciente</th>
+                              <th>Patologia</th>
+                              <th>Especialidad</th>
+							</tr>
+						</thead>
+						<tbody class="text-center">
+							<tr>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="">Ok</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <!-- Bootstrap core JavaScript-->
     <script src="../librerias/jquery/jquery.min.js"></script>
     <script src="../librerias/bootstrap/js/bootstrap.bundle.min.js"></script>    
 
@@ -484,10 +532,17 @@ session_start();
     <script type="text/javascript" src="../librerias/DataTables/js/dataTables.bootstrap4.min.js"></script> 
     <script type="text/javascript" src="../librerias/DataTables/datatables.min.js"></script>  
 
-    <!-- main del java scrip
-	<script src="./js/data-servicios.js"></script> -->
-    <!--Notificaciones-->
+    <!-- main del java scrip -->
+    <script src="./js/data-infoCa.js"></script>
+	<!--Notificaciones-->
 	<script src="../librerias/swa2/dist/sweetalert2.min.js"></script>
+	
+	<!-- Page level plugins -->
+    <script src="./js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="./js/demo/chart-area-demo.js"></script>
+    <script src="./js/demo/chart-pie-demo.js"></script>
 
 </body>
 

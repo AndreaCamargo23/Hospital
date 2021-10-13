@@ -209,7 +209,7 @@
 										<div class="card bg-primary text-white shadow">
 											<div class="card-body">
 											 <i class="fas fa-download text-white"></i>
-												Descargar Historia clinica
+												<a href="#">Ver Historia clinica</a>
 												<div class="text-white-50 small">Obtenga su historia clinica</div>
 											</div>
 										</div>
@@ -296,6 +296,86 @@
             </div>
         </div>
     </div>
+    <!--modal historia-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                      <!--FORMULARIO DE INSCRIPCION DE ALUMNOS-->
+        <form id="formIngreso">      
+            <div class="modal-body">
+            <div class="row">            
+                
+                <div class="col-lg-6">
+                  <div class="form-group">
+                      <label class="col-form-label">Fecha de Nacimiento</label>
+                      <input type="date" class="form-control" id="starDate" disabled="true">
+                  </div> 
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Paciente</label>
+                    <input type="text" class="form-control" id="starDate" disabled="true">
+                  </div> 
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                      <label class="col-form-label" id="passwd1">Descripción</label> 
+					  <textarea name="textarea" rows="3" class="form-control" cols="30" id="descripcion" placeholder="Ingrese la descripcion" disabled="true"></textarea>
+                  </div> 
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Id Ingreso</label>
+                    <input type="number" class="form-control" id="starDate" disabled="true">
+                  </div> 
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                      <label class="col-form-label">Fecha Ingreso</label>
+                      <input type="date" class="form-control" id="starDate" disabled="true">
+                  </div> 
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="col-form-label">Habitacion</label>
+                    <input type="number" class="form-control" id="starDate" disabled="true">
+                  </div> 
+                </div>
+				<div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="col-form-label">Cama</label>
+                    <input type="number" class="form-control" id="starDate" disabled="true">
+                  </div> 
+                </div>
+					<div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Servicio Principal</label>
+                    <input type="text" class="form-control" id="starDate" disabled="true">
+                  </div> 
+                </div>
+				<div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Empleado que atiende</label>
+                    <input type="text" class="form-control" id="starDate" disabled="true">
+                  </div> 
+                </div>					
+            </div>
+            </div>
+        
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+				<button type="submit" id="btnGuardar" class="btn btn-primary">Crear Ingreso</button>
+			</div>
+        </form>
+
+    
+                    <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Salir</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap core JavaScript-->
     <!-- Bootstrap core JavaScript-->
@@ -320,6 +400,7 @@
 	
 	<!-- Page level plugins -->
     <script src="./js/Chart.min.js"></script>
+    <script src="./js/data-pacientes.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="./js/demo/chart-area-demo.js"></script>

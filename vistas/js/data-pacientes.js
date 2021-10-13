@@ -173,4 +173,50 @@ $(document).ready(function() {
 
         }
     });
+    $('#formIngreso').submit(function(e) {
+        fila = $(this).closest('tr'); //manipular el contenido de la clase
+        id = parseInt(fila.find('td:eq(0)').text()); //trae el codigo en la posicion 0
+        opcion = 5;
+        email = "";
+        datos = null;
+        $.ajax({
+            url: "../baseDatos/crudPaciente.php",
+            type: "POST",
+            datatype: "json",
+            data: {
+                id: id,
+                opcion: opcion
+            },
+            success: function(data) {
+                email = JSON.parse(data);
+                $("#id").val(email[0]["id_paciente"]);
+                $('#nom').val(email[0]["nombre"]);
+                $('#ape').val(email[0]["apellido"]);
+                $('#dire').val(email[0]["direccion"]);
+                $("#fecha_nac").val(email[0]["fecha_nac"]);
+                $('#email').val(email[0]["email"]);
+                $('#celu').val(email[0]["celular"]);
+                $('#rh').val(email[0]["id_rh_fk"]);
+                $('#genero').val(email[0]["id_genero_fk"]);
+                $('#estado').val(email[0]["id_estado_fk"]);
+
+                var memo = document.getElementsByName('genero');
+                for (i = 0; i < memo.length; i++) {
+                    if (memo[i].value == email[0]["id_genero_fk"]) {
+                        //var memory=memo[i].checked;
+                        memo[i].checked = true;
+                        var genero = memo[i].value;
+                    }
+                }
+                $('#estado').prop('disabled', true);
+            }
+        });
+        opcion = 2;
+        //Referenciar el modal y agregar el titulo en el modal
+        $(".modal-header").css("background-color", "");
+        $(".modal-header").css("color", "black");
+        $(".modal-title").text("Modificar Información");
+        $("#modalPaciente").modal('show');
+        $("#btnGuardar").text("Actualizar");
+    });
 });
