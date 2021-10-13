@@ -78,7 +78,7 @@ session_start();
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-users-cog"></i>
                     <span>Usuarios</span>
@@ -105,7 +105,7 @@ session_start();
                     <span>Servicios</span></a>
             </li>
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="facturas.php">
                     <i class="fas fa-fw fa-file-invoice-dollar"></i>
                     <span>Facturas</span></a>
@@ -370,19 +370,13 @@ session_start();
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Usuarios</h1>
-                    <p class="mb-4">En el siguiente apartado se muestran todos los usuarios creados, agregar un nuevo usuario; o editar los usuarios ya creados</p>
+                    <h1 class="h3 mb-2 text-gray-800">Facturacion</h1>
+                    <p class="mb-4">En el siguiente apartado se muestran las facturas que han sido registradas</p>
                 
                     <!--boton para agregar registro-->
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
-                                <button type="button" id="btnAgregar" class="btn btn-info" data-toggle="modalAgregar">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-user-plus"></i>
-                                        </span>
-                                        <span class="text">Agregar Usuario</span>                                    
-                                </button>
                             </div>
                         </div>
                     </div>

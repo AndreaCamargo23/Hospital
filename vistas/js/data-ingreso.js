@@ -192,18 +192,45 @@ $(document).ready(function() {
 		});
 		
     });
-	$(document).on("click", ".btnFactura", function() {
-        Swal.fire({
-            icon: 'info',
-            title: 'Se acaba de generar su factura',
-            confirmButtonText: 'OK',
-        });
-		
+	$(document).on("click", ".btnFactura", function() {    
 		
         fila = $(this); //manipular el contenido de la clase
         id = parseInt($(this).closest('tr').find('td:eq(0)').text());
 		opcion = 7;	
+		$.ajax({
+            url: "../baseDatos/crudIngreso.php",
+            type: "POST",
+            datatype: "json",
+            data: {
+                id: id,
+				id_servicio: id_servicio,
+				id_empleado: id_empleado,
+                opcion: opcion
+            },
+            success: function(data) {
+                if (data == "null") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al Registrar',
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cambios Guardados',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    tablaIngreso.ajax.reload(null, false);
+                }
+            }
+        });
+		Swal.fire({
+            icon: 'info',
+            title: 'Se acaba de generar su factura'+id,
+            confirmButtonText: 'OK',
+        });
 		generarPDF(id);
+		
     });
 });
 
@@ -212,6 +239,6 @@ function generarPDF(ingreso){
 	var alto=800; 
 	var x = parseInt((window.screen.width/2)-(ancho/2));
 	var y = parseInt((window.screen.height/2)-(alto/2));
-	$url ='../librerias/ingreso/generaIngreso.php?ci='+ingreso;
+	$url ='../librerias/ingreso/factura.php?ci='+ingreso+'&f='+3;
 	window.open($url,"Factura","left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizable=si,menubar=no");
 }
