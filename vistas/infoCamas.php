@@ -85,18 +85,27 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Agregar:</h6>
+                        <?php 
+                            if($_SESSION['rol']==1){                            
+                        ?>
+                        <a class="collapse-item" href="usuarios.php">Usuario</a>
+                        <a class="collapse-item" href="empleado.php">Empleado</a>
                         <a class="collapse-item" href="paciente.php">Paciente</a>
+                        <?php }else{
+
+                        ?>
+                        <a class="collapse-item" href="paciente.php">Paciente</a><?php }?>
                     </div>
                 </div>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="servicios.php">
                     <i class="fas fa-fw fa-stethoscope"></i>
                     <span>Servicios</span></a>
             </li>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="facturas.php">
                     <i class="fas fa-fw fa-file-invoice-dollar"></i>
                     <span>Facturas</span></a>
             </li>
@@ -109,7 +118,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="camas.php">
                     <i class="fas fa-fw fa-procedures"></i>
                     <span>Camas</span></a>
             </li>
@@ -132,9 +141,9 @@
                 <div id="collapseInformes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestionar:</h6>
-                        <a class="collapse-item" href="usuarios.php">Camas</a>
+                        <a class="collapse-item" href="infoCamas.php">Camas</a>
                         <a class="collapse-item" href="infoFact.php">Facturacion</a>
-                        <a class="collapse-item" href="paciente.php">Servicios</a>
+                        <a class="collapse-item" href="infoServicios.php">Servicios</a>
                     </div>
                 </div>
             </li>
