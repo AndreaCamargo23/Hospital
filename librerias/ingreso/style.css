@@ -37,11 +37,10 @@ p, label, span, table{
 	width: 25%;
 }
 .info_empresa{
-	width: 50%;
 	text-align: center;
 }
 .info_factura{
-	width: 25%;
+	
 }
 .info_cliente{
 	width: 100%;
@@ -76,7 +75,7 @@ p, label, span, table{
 	border-radius: 10px;
 	border: 1px solid #0a4661;
 	overflow: hidden;
-	padding-bottom: 15px;
+	padding-bottom: 0px;
 }
 .round p{
 	padding: 0 15px;
@@ -111,4 +110,9 @@ p, label, span, table{
 	left: 50%;
 	top: 50%;
 	transform: translateX(-50%) translateY(-50%);
+}
+.logo_factura{
+	width: 10px;
+	height: 10px;
+	text-align: center;
 }
