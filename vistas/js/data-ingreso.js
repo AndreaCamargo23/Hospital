@@ -199,9 +199,19 @@ $(document).ready(function() {
             confirmButtonText: 'OK',
         });
 		
+		
         fila = $(this); //manipular el contenido de la clase
         id = parseInt($(this).closest('tr').find('td:eq(0)').text());
 		opcion = 7;	
-		
+		generarPDF(id);
     });
 });
+
+function generarPDF(ingreso){
+	var ancho = 1000; 
+	var alto=800; 
+	var x = parseInt((window.screen.width/2)-(ancho/2));
+	var y = parseInt((window.screen.height/2)-(alto/2));
+	$url ='../librerias/ingreso/generaIngreso.php?ci='+ingreso;
+	window.open($url,"Factura","left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizable=si,menubar=no");
+}
