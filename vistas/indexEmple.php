@@ -132,7 +132,7 @@
                 <div id="collapseInformes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestionar:</h6>
-                        <a class="collapse-item" href="usuario.php">Camas</a>
+                        <a class="collapse-item" href="infoCamas.php">Camas</a>
                         <a class="collapse-item" href="infoFact.php">Facturacion</a>
                         <a class="collapse-item" href="paciente.php">Servicios</a>
                     </div>
@@ -405,7 +405,7 @@
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
 													<?php
 													//Creación del objeto de la clase 
-													$sql = "select count(*) from paciente where id_estado_fk=4;"; 
+													$sql = "select count(*) from habitacion where id_estado_fk = 10"; 
 													$res = $link->prepare($sql);//Prepara la consulta para su ejecución
 													$res->execute(); //Ejecuta la consulta 
 													$row = $res->fetchAll(PDO::FETCH_ASSOC);

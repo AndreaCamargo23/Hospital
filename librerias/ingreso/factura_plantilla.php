@@ -12,21 +12,21 @@
 		<tr>
 			<td class="logo_factura">
 				<div>
-					<img src="img/logo.png">
+					<img src="img/hospital.png">
 				</div>
 			</td>
 			<td class="info_empresa">
 				<div>
-					<span class="h2">SISTEMA VENTAS ABELOSH</span>
+					<span class="h2">HOSPITAL BAM</span>
 					<p>Avenida las américas Zona 13, Guatemala</p>
-					<p>Teléfono: +(502) 2222-3333</p>
-					<p>Email: info@abelosh.com</p>
+					<p>Teléfono: +(601) 3625986</p>
+					<p>Email: info@gmail.com</p>
 				</div>
 			</td>
 			<td class="info_factura">
 				<div class="round">
-					<span class="h3">Factura</span>
-					<p>No. Factura: <strong>000001</strong></p>
+					<span class="h3">Historia CLinica</span>					
+					<p>No. historia: <strong>000001</strong></p>
 					<p>Fecha: 20/01/2019</p>
 					<p>Hora: 10:30am</p>
 					<p>Vendedor: Jorge Pérez Hernández Cabrera</p>
