@@ -100,26 +100,26 @@ session_start();
                 </div>
             </li>
 			<li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="servicios.php">
                     <i class="fas fa-fw fa-stethoscope"></i>
                     <span>Servicios</span></a>
             </li>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="facturas.php">
                     <i class="fas fa-fw fa-file-invoice-dollar"></i>
                     <span>Facturas</span></a>
             </li>
 			<!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="ingreso.php">
                     <i class="fas fa-fw fa-book-medical"></i>
                     <span>Ingreso</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="camas.php">
                     <i class="fas fa-fw fa-procedures"></i>
                     <span>Camas</span></a>
             </li>
@@ -390,28 +390,32 @@ session_start();
                     <!-- DataTales Example -->
                     <div class="card shadow mb-8">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Consulta Usuarios</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Consulta Facturas</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                   <table id="tablaUsuarios" class="table table-bordered">
+                                   <table id="tablaFacturas" class="table table-bordered">
 									  <thead class="text-center"> 
 										<tr>
-										  <th>ID</th>
-										  <th>USUARIO</th>
-										  <th>EMAIL</th>
-										  <th>ROL</th>
+                                          <th>ID</th>
+										  <th>FECHA FACTURA</th>
+										  <th>FECHA PAGO</th>
+										  <th>VALOR TOTAL</th>
 										  <th>ESTADO</th>
-										  <th>ACCIONES</th>
+										  <th>INGRESO</th>
+                                          <th>FECHA VENCIMIENTO</th>
+                                          <th>ACCIONES</th>
 										</tr>
 									  </thead>
 									  <tfoot class="text-center">
 									  <tr>
-										  <th>ID</th>
-										  <th>USUARIO</th>
-										  <th>EMAIL</th>
-										  <th>ROL</th>
+                                          <th>ID</th>
+										  <th>FECHA FACTURA</th>
+										  <th>FECHA PAGO</th>
+										  <th>VALOR TOTAL</th>
 										  <th>ESTADO</th>
+										  <th>INGRESO</th>
+                                          <th>FECHA VENCIMIENTO</th>
 										  <th>ACCIONES</th>
 										</tr>
 									  </tfoot>
@@ -469,85 +473,89 @@ session_start();
             </div>
         </div>
     </div>
-    <!-- Modal Agregar usuario-->
-
- <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalUsuario" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalUsuario"></h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <!--FORMULARIO DE INSCRIPCION DE ALUMNOS-->
-        <form id="formUsuario">      
-            <div class="modal-body">
-            <div class="row">            
-                <div class="col-lg-6">
-                  <div class="form-group">
-                      <label class="col-form-label">Email</label>
-                      <input type="email" class="form-control" placeholder="ejemplo@gmail.com" id="email" required>
-                  </div> 
+    
+    <!-- Modal Modificar --> 
+    <div class="modal fade" id="modalModificar" tabindex="-1" aria-labelledby="modalFactura" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalFactura"></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                    </button>
                 </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                      <label class="col-form-label" id="passwd1">Contraseña</label>
-                      <input type="password" class="form-control" placeholder="" maxlength="40" minlength="8" id="passwd" required>
-                  </div> 
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                      <label class="col-form-label">Nombre de Usuario</label>
-                      <input type="text" class="form-control" placeholder="" id="nomUsua" pattern="[A-Za-z0-9]+" title="Solo seleccione letras y números, no se aceptan caracteres especiales" maxlength="50" minlength="10" required>
-                  </div> 
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Rol</label>
-                      <select class="form-select" id="rol" aria-label="Default select example">
-                        <option selected>Seleccione una opción</option>
-                        <option value="1">Administrador</option>
-                        <option value="2">Empleado</option>
-                        <option value="3">Paciente</option>
-                      </select>
-                  </div> 
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Estado</label>
-                      <select class="form-select" id="estado" aria-label="Default select example">
-                        <option selected>Seleccione una opción</option>
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
-                        <option value="3">Bloqueado</option>
-                      </select>
-                  </div> 
-                </div>
-				<div class="col-lg-6">
-                  <div class="form-group">                    
-						<div id="" class="ax_default heading_3" data-label="codigo">
-						  <div></div>
-						  <div>
-						  <?php $codigo=codigo();?>
-							<label class="col-form-label" style="font-weight: bold;">Codigo de recuperación</label>
-							 <input type="text" class="form-control" value='<?php echo rand()?>' id="codigo" disabled="true" required>
-						  </div>
-						</div>
-                  </div> 
-                </div>
-				
+                <form id="formVencimiento">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-form-label">Fecha de Vencimiento</label>
+                                    <input type="date" class="form-control" id="fecha_vencimiento" required> 
+                                </div>
+                            </div>                           
+                        </div>                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button type="submit" id="btnGuardar" class="btn btn-primary">Modificar</button>
+                    </div>
+                </form>
             </div>
-            </div>
-        
-        <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <button type="submit" id="btnGuardar" class="btn btn-primary">Crear Usuario</button>
         </div>
-        </form>
-      </div>
     </div>
-  </div>
+
+    <!-- Modal Servicios--> 
+    <div class="modal fade" id="modalServicio" tabindex="-1" aria-labelledby="modalFactura" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalFactura"></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <form id="formServicio">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Paciente</label>
+                                    <input type="text" class="form-control" id="nom_paciente" disabled="true" required> 
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-gruop">
+                                <label class="col-form-label">Valor Cama $</label>
+                                    <input type="text" class="form-control" id="valor_cama" disabled="true" required> 
+                                </div>
+                            </div>         
+                            <table id="tabla2" class="table table-bordered">
+                                <thead class="text-center"> 
+                                    <tr>
+                                    <th>Servicio</th>
+                                    <th>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-lg-12">
+                                <div class="form-gruop">
+                                <label class="col-form-label">Valor Total $</label>
+                                    <input type="text" class="form-control" id="valor_total" disabled="true" required> 
+                                </div>
+                            </div>                          
+                        </div>                        
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" href="">Ok</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
         <!-- Bootstrap core JavaScript-->
     <script src="../librerias/jquery/jquery.min.js"></script>
@@ -565,7 +573,7 @@ session_start();
     <script type="text/javascript" src="../librerias/DataTables/datatables.min.js"></script>  
 
     <!-- main del java scrip -->
-	<script src="./js/data-usuarios.js"></script>
+	<script src="./js/data-facturas.js"></script>
     <!--Notificaciones-->
 	<script src="../librerias/swa2/dist/sweetalert2.min.js"></script>
 
