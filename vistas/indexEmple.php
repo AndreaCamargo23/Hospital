@@ -102,7 +102,7 @@
             </li>
 			<!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="ingreso.php">
                     <i class="fas fa-fw fa-book-medical"></i>
                     <span>Ingreso</span></a>
             </li>
@@ -132,7 +132,7 @@
                 <div id="collapseInformes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestionar:</h6>
-                        <a class="collapse-item" href="usuarios.php">Camas</a>
+                        <a class="collapse-item" href="usuario.php">Camas</a>
                         <a class="collapse-item" href="infoFact.php">Facturacion</a>
                         <a class="collapse-item" href="paciente.php">Servicios</a>
                     </div>
