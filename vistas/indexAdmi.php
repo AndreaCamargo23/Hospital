@@ -132,9 +132,9 @@
                 <div id="collapseInformes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestionar:</h6>
-                        <a class="collapse-item" href="usuarios.php">Camas</a>
+                        <a class="collapse-item" href="infoCamas.php">Camas</a>
                         <a class="collapse-item" href="infoFact.php">Facturacion</a>
-                        <a class="collapse-item" href="paciente.php">Servicios</a>
+                        <a class="collapse-item" href="infoServicio.php">Servicios</a>
                     </div>
                 </div>
             </li>
@@ -155,15 +155,6 @@
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Configuracion</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="#">Colors</a>
-                        <a class="collapse-item" href="#">Borders</a>
-                        <a class="collapse-item" href="#">Animations</a>
-                        <a class="collapse-item" href="#">Other</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Sidebar Toggler (Sidebar) -->

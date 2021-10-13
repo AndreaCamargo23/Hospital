@@ -196,7 +196,7 @@ $(document).ready(function() {
 		
         fila = $(this); //manipular el contenido de la clase
         id = parseInt($(this).closest('tr').find('td:eq(0)').text());
-		opcion = 7;	
+		opcion = 7;	/*
 		$.ajax({
             url: "../baseDatos/crudIngreso.php",
             type: "POST",
@@ -223,7 +223,7 @@ $(document).ready(function() {
                     tablaIngreso.ajax.reload(null, false);
                 }
             }
-        });
+        });*/
 		Swal.fire({
             icon: 'info',
             title: 'Se acaba de generar su factura'+id,

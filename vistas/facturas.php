@@ -142,9 +142,9 @@ session_start();
                 <div id="collapseInformes" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestionar:</h6>
-                        <a class="collapse-item" href="usuarios.php">Camas</a>
+                        <a class="collapse-item" href="infoCamas.php">Camas</a>
                         <a class="collapse-item" href="infoFact.php">Facturacion</a>
-                        <a class="collapse-item" href="paciente.php">Servicios</a>
+                        <a class="collapse-item" href="infoServicios.php">Servicios</a>
                     </div>
                 </div>
             </li>
